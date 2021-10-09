@@ -1,0 +1,49 @@
+:root {
+	font-family: "Courier New", monospace;
+}
+
+body {
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.player-turn {
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	font-size: 2.1rem;
+	text-align: center;
+	margin: auto 42%;
+	border-radius: 4px;
+}
+.player-turn > div {
+	background-color: hsl(180, 100%, 96%);
+	flex: 1;
+	border: 1px solid hsl(180, 44%, 92%);
+	padding: 0px 20px;
+}
+
+.game-board {
+	display: inline-grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 5px;
+	margin: 15px;
+}
+
+.cell {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: hsl(34, 78%, 91%);
+	padding: 10px;
+	padding-bottom: 0;
+	box-sizing: border-box;
+	color: hsl(0, 0%, 25%);
+	font-size: 90px;
+	width: 100px;
+	height: 100px;
+}
+.cell:hover {
+	cursor: pointer;
+	background-color: hsl(34, 78%, 82%);
+}
