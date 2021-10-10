@@ -22,6 +22,9 @@ body {
 	border: 1px solid hsl(180, 44%, 92%);
 	padding: 0px 20px;
 }
+.player-turn > .heighlight {
+	background-color: hsl(180, 52%, 82%);
+}
 
 .game-board {
 	display: inline-grid;

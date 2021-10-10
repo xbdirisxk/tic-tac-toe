@@ -1,6 +1,6 @@
-let playerOne = "X";
-let playerTwo = "O";
-let currentPlayer = playerOne;
+let playerX = "X";
+let playerO = "O";
+let currentPlayer;
 
 const boardBoxes = ["", "", "", "", "", "", "", "", ""];
 
@@ -16,13 +16,29 @@ const posibleWins = [
 ];
 
 let cells = document.querySelectorAll(".cell");
+let xTurn = document.querySelector(".player-turn > .player-x");
+let circleTurn = document.querySelector(".player-turn > .player-o");
 
 cells.forEach((cell) => {
 	cell.addEventListener("click", fillCell, { once: true });
 });
 
+let circle;
+xTurn.classList.toggle("heighlight");
 function fillCell(cell) {
 	cell = cell.target;
-	cell.innerText = "X";
-	console.log(cell);
+	currentPlayer = circle ? playerO : playerX;
+	boardBoxes.splice(cell.id, 1, currentPlayer);
+	cell.innerText = currentPlayer; // change x to current user
+
+	// checkWin()
+	swapPlayer();
+}
+
+function checkWin() {}
+
+function swapPlayer() {
+	circle = !circle;
+	xTurn.classList.toggle("heighlight");
+	circleTurn.classList.toggle("heighlight");
 }
