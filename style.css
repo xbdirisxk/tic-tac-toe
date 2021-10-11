@@ -77,3 +77,25 @@ body {
 	cursor: pointer;
 	background-color: hsl(34, 78%, 82%);
 }
+
+.winBox {
+	background-color: hsl(34, 78%, 72%);
+	border-radius: 10px;
+}
+
+.restart-game {
+	background-color: hsl(180, 100%, 97%);
+	border: 1px solid gray;
+	border-radius: 2px;
+	padding: 4px 12px;
+	margin: 10px;
+	font-family: "ZCOOL KuaiLe", cursive;
+}
+.restart-game:hover {
+	background-color: hsl(180, 100%, 91%);
+	cursor: pointer;
+}
+
+.hide {
+	display: none;
+}

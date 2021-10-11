@@ -9,7 +9,7 @@ const posibleWins = [
 	[3, 4, 5],
 	[6, 7, 8],
 	[0, 3, 6],
-	[1, 4, 5],
+	[1, 4, 7],
 	[2, 5, 8],
 	[0, 4, 8],
 	[2, 4, 6],
@@ -23,16 +23,22 @@ cells.forEach((cell) => {
 	cell.addEventListener("click", fillCell, { once: true });
 });
 
+let roundWon = false;
+let restartButton = document.querySelector(".restart-game");
 let circle;
 xTurn.classList.toggle("heighlight");
+
 function fillCell(cell) {
 	cell = cell.target;
-	currentPlayer = circle ? playerO : playerX;
-	boardBoxes.splice(cell.id, 1, currentPlayer);
-	cell.innerText = currentPlayer; // change x to current user
 
-	checkWin();
-	swapPlayer();
+	if (roundWon === false) {
+		currentPlayer = circle ? playerO : playerX;
+		boardBoxes.splice(cell.id, 1, currentPlayer);
+		cell.innerText = currentPlayer; // change x to current user
+
+		checkWin();
+		swapPlayer();
+	}
 }
 
 function swapPlayer() {
@@ -41,18 +47,31 @@ function swapPlayer() {
 	circleTurn.classList.toggle("heighlight");
 }
 
+let winningArea = document.querySelector(".winner");
+
 function checkWin() {
-	let roundWon = false;
 	for (i = 0; i < posibleWins.length; i++) {
 		let currentRound = posibleWins[i];
 		let a = boardBoxes[currentRound[0]];
 		let b = boardBoxes[currentRound[1]];
 		let c = boardBoxes[currentRound[2]];
 		if (a == "X" && b == "X" && c == "X") {
-			console.log("game over X WINs");
+			roundWon = true;
+			winningArea.textContent = "player X wins ";
+			// heighlight match boxes
+			cells[currentRound[0]].classList.add("winBox");
+			cells[currentRound[1]].classList.add("winBox");
+			cells[currentRound[2]].classList.add("winBox");
+			restartButton.classList.remove("hide");
 			break;
 		} else if (a == "O" && b == "O" && c == "O") {
-			console.log("game over O WINs");
+			roundWon = true;
+			winningArea.textContent = "player O wins";
+			// heighlight match boxes
+			cells[currentRound[0]].classList.add("winBox");
+			cells[currentRound[1]].classList.add("winBox");
+			cells[currentRound[2]].classList.add("winBox");
+			restartButton.classList.remove("hide");
 			break;
 		}
 		console.log("there is no match");
@@ -64,5 +83,5 @@ function checkWin() {
 }
 
 function announceWinner() {
-	// fill in future
+	//
 }
