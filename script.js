@@ -74,14 +74,13 @@ function checkWin() {
 			restartButton.classList.remove("hide");
 			break;
 		}
-		console.log("there is no match");
 	}
 
-	if (roundWon) {
-		// announce if there is winner
+	let finish = boardBoxes.every((box) => {
+		return box != "";
+	});
+	if (finish) {
+		winningArea.textContent = "it's Tai";
+		restartButton.classList.remove("hide");
 	}
-}
-
-function announceWinner() {
-	//
 }
