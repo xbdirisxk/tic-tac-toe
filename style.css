@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap");
+
 :root {
 	font-family: "Courier New", monospace;
 }
@@ -7,23 +9,48 @@ body {
 	text-align: center;
 }
 
+.container {
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	flex-direction: column;
+}
+.container h1 {
+	font-family: "ZCOOL KuaiLe", cursive;
+	font-size: 4rem;
+	margin: 10px;
+}
+
+.winner {
+	font-size: 2rem;
+	margin: 10px;
+	height: 35px;
+	font-weight: bolder;
+	color: hsl(0, 100%, 20%);
+}
+
+.main {
+	max-width: 400px;
+}
+
 .player-turn {
 	display: flex;
 	justify-items: center;
 	align-items: center;
 	font-size: 2.1rem;
 	text-align: center;
-	margin: auto 42%;
 	border-radius: 4px;
+	width: 100%;
+	font-family: "ZCOOL KuaiLe", cursive;
 }
 .player-turn > div {
-	background-color: hsl(180, 100%, 96%);
+	background-color: hsl(34, 78%, 91%);
 	flex: 1;
-	border: 1px solid hsl(180, 44%, 92%);
+	border: 1px solid hsl(34, 78%, 88%);
 	padding: 0px 20px;
 }
 .player-turn > .heighlight {
-	background-color: hsl(180, 52%, 82%);
+	background-color: hsl(34, 78%, 71%);
 }
 
 .game-board {

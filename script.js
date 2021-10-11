@@ -31,14 +31,38 @@ function fillCell(cell) {
 	boardBoxes.splice(cell.id, 1, currentPlayer);
 	cell.innerText = currentPlayer; // change x to current user
 
-	// checkWin()
+	checkWin();
 	swapPlayer();
 }
-
-function checkWin() {}
 
 function swapPlayer() {
 	circle = !circle;
 	xTurn.classList.toggle("heighlight");
 	circleTurn.classList.toggle("heighlight");
+}
+
+function checkWin() {
+	let roundWon = false;
+	for (i = 0; i < posibleWins.length; i++) {
+		let currentRound = posibleWins[i];
+		let a = boardBoxes[currentRound[0]];
+		let b = boardBoxes[currentRound[1]];
+		let c = boardBoxes[currentRound[2]];
+		if (a == "X" && b == "X" && c == "X") {
+			console.log("game over X WINs");
+			break;
+		} else if (a == "O" && b == "O" && c == "O") {
+			console.log("game over O WINs");
+			break;
+		}
+		console.log("there is no match");
+	}
+
+	if (roundWon) {
+		// announce if there is winner
+	}
+}
+
+function announceWinner() {
+	// fill in future
 }
