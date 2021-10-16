@@ -19,25 +19,26 @@ let cells = document.querySelectorAll(".cell");
 let xTurn = document.querySelector(".player-turn > .player-x");
 let circleTurn = document.querySelector(".player-turn > .player-o");
 
-cells.forEach((cell) => {
-	cell.addEventListener("click", fillCell, { once: true });
-});
-
 let roundWon = false;
 let restartButton = document.querySelector(".restart-game");
 let circle;
 xTurn.classList.toggle("heighlight");
 
-function fillCell(cell) {
+cells.forEach((cell) => {
+	cell.addEventListener("click", fillBox, { once: true });
+});
+
+function fillBox(cell) {
 	cell = cell.target;
 
-	if (roundWon === false) {
-		currentPlayer = circle ? playerO : playerX;
-		boardBoxes.splice(cell.id, 1, currentPlayer);
-		cell.innerText = currentPlayer; // change x to current user
+	if (roundWon === false && cell.textContent == "") {
+		// currentPlayer = circle ? playerO : playerX;
+		boardBoxes.splice(cell.id, 1, playerX);
+		cell.innerText = playerX; // change x to current user
 
+		robot(); // robot turn
 		checkWin();
-		swapPlayer();
+		// swapPlayer();
 	}
 }
 
@@ -79,8 +80,26 @@ function checkWin() {
 	let finish = boardBoxes.every((box) => {
 		return box != "";
 	});
-	if (finish) {
+	if (finish && !roundWon) {
 		winningArea.textContent = "it's Tai";
 		restartButton.classList.remove("hide");
+	} else if (finish) restartButton.classList.remove("hide");
+}
+
+// AI
+function robot() {
+	let randomN = Math.floor(Math.random() * 9);
+	if (boardBoxes[randomN] == "") {
+		boardBoxes.splice(randomN, 1, "O");
+		cells[randomN].innerText = "O";
+
+		// check if player X wins before playing
+		//
+
+		return "O";
 	}
+	let finish = boardBoxes.every((box) => {
+		return box != "";
+	});
+	if (!finish) robot();
 }

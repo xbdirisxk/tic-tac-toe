@@ -21,6 +21,27 @@ body {
 	margin: 10px;
 }
 
+.game-start {
+	margin: 50px;
+	display: flex;
+	font-size: 3rem;
+	font-family: "ZCOOL KuaiLe", cursive;
+}
+.game-start > div {
+	margin: 1px;
+	border: 3px solid hsl(34, 44%, 69%);
+	border-radius: 3px;
+	padding: 25px 50px;
+	width: 25px;
+	transition: width 0.6s;
+}
+.game-start > div:hover {
+	background-color: hsl(34, 44%, 69%);
+	color: white;
+	width: 55px;
+	cursor: pointer;
+}
+
 .winner {
 	font-size: 2rem;
 	margin: 10px;
@@ -31,6 +52,7 @@ body {
 
 .main {
 	max-width: 400px;
+	user-select: none;
 }
 
 .player-turn {
