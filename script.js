@@ -89,17 +89,17 @@ function checkWin() {
 // AI
 function robot() {
 	let randomN = Math.floor(Math.random() * 9);
+	let finished = boardBoxes.every((box) => {
+		return box != "";
+	});
 	if (boardBoxes[randomN] == "") {
 		boardBoxes.splice(randomN, 1, "O");
+		cells[randomN].classList.add("robot");
 		cells[randomN].innerText = "O";
 
 		// check if player X wins before playing
 		//
 
 		return "O";
-	}
-	let finish = boardBoxes.every((box) => {
-		return box != "";
-	});
-	if (!finish) robot();
+	} else if (!finished) robot();
 }

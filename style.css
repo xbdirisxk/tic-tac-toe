@@ -74,7 +74,7 @@ body {
 .player-turn > .heighlight {
 	background-color: hsl(34, 78%, 71%);
 }
-
+/* board game */
 .game-board {
 	display: inline-grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -103,6 +103,22 @@ body {
 .winBox {
 	background-color: hsl(34, 78%, 72%);
 	border-radius: 10px;
+	animation-name: wingame;
+	animation-duration: 1.5s;
+}
+@keyframes wingame {
+	0% {
+		background-color: hsl(34, 78%, 91%);
+	}
+	25% {
+		background-color: hsl(34, 78%, 70%);
+	}
+	50% {
+		background-color: hsl(34, 78%, 91%);
+	}
+	95% {
+		background-color: hsl(34, 78%, 70%);
+	}
 }
 
 .restart-game {
@@ -118,6 +134,29 @@ body {
 	cursor: pointer;
 }
 
+/* hide property */
 .hide {
 	display: none;
+}
+
+/* robot play animation */
+@keyframes robot {
+	0% {
+		color: #fff;
+		font-size: 150px;
+	}
+	50% {
+		color: rgb(58, 58, 58);
+		font-size: 100px;
+	}
+	100% {
+		color: rgb(51, 50, 50);
+		font-size: 90px;
+	}
+}
+.robot {
+	color: #000;
+	font-size: 90px;
+	animation-name: robot;
+	animation-duration: 0.4s;
 }
