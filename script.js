@@ -1,6 +1,7 @@
 let playerX = "X";
 let playerO = "O";
 let currentPlayer;
+let roundWon = false;
 
 const boardBoxes = ["", "", "", "", "", "", "", "", ""];
 
@@ -19,7 +20,29 @@ let cells = document.querySelectorAll(".cell");
 let xTurn = document.querySelector(".player-turn > .player-x");
 let circleTurn = document.querySelector(".player-turn > .player-o");
 
-let roundWon = false;
+// player choice one or two player
+const gameBegin = document.querySelector(".game-start");
+const gameOption = document.querySelectorAll(".game-start > div");
+const gameboard = document.querySelector(".container > .main");
+let playerChose;
+gameOption.forEach((option) => {
+	option.addEventListener("click", () => {
+		if (option.id == "one-player") {
+			playerChose = "one-player";
+			gameBegin.classList.add("hide");
+			winningArea.classList.remove("hide");
+			gameboard.classList.remove("hide");
+		} else if (option.id == "two-players") {
+			playerChose = "two-players";
+			gameBegin.classList.add("hide");
+			winningArea.classList.remove("hide");
+			gameboard.classList.remove("hide");
+		}
+	});
+});
+
+// play game
+
 let restartButton = document.querySelector(".restart-game");
 let circle;
 xTurn.classList.toggle("heighlight");
@@ -31,14 +54,23 @@ cells.forEach((cell) => {
 function fillBox(cell) {
 	cell = cell.target;
 
-	if (roundWon === false && cell.textContent == "") {
-		// currentPlayer = circle ? playerO : playerX;
+	if (
+		playerChose == "one-player" &&
+		roundWon === false &&
+		cell.textContent == ""
+	) {
 		boardBoxes.splice(cell.id, 1, playerX);
 		cell.innerText = playerX; // change x to current user
 
-		robot(); // robot turn
 		checkWin();
-		// swapPlayer();
+		robot(); // robot turn
+	} else if (playerChose == "two-players" && roundWon === false) {
+		currentPlayer = circle ? playerO : playerX;
+		boardBoxes.splice(cell.id, 1, currentPlayer);
+		cell.innerText = currentPlayer; // change x to current user
+
+		checkWin(); // check win two times
+		swapPlayer();
 	}
 }
 
@@ -92,14 +124,21 @@ function robot() {
 	let finished = boardBoxes.every((box) => {
 		return box != "";
 	});
-	if (boardBoxes[randomN] == "") {
+	if (boardBoxes[randomN] == "" && !roundWon) {
 		boardBoxes.splice(randomN, 1, "O");
 		cells[randomN].classList.add("robot");
 		cells[randomN].innerText = "O";
 
-		// check if player X wins before playing
-		//
-
 		return "O";
-	} else if (!finished) robot();
+	} else if (!finished && !roundWon) robot();
+	checkWin(); // check win two times
 }
+
+/* for (i=0 ; i<boardBoxes.length;i++){
+	let index;
+	for(j=0; j<3; j++){
+		if ()
+		posibleWins[i][j]
+	}
+	
+} */
