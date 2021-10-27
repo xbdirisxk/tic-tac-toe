@@ -1,20 +1,70 @@
 let playerX = "X";
 let playerO = "O";
 let currentPlayer;
-let roundWon = false;
+let gameOver = false;
 
-const boardBoxes = ["", "", "", "", "", "", "", "", ""];
-
-const posibleWins = [
-	[0, 1, 2],
-	[3, 4, 5],
-	[6, 7, 8],
-	[0, 3, 6],
-	[1, 4, 7],
-	[2, 5, 8],
-	[0, 4, 8],
-	[2, 4, 6],
+const board = [
+	["X", "X", "O"],
+	["X", "_", "_"],
+	["O", "O", "O"],
 ];
+
+function checkWinner() {
+	for (let row = 0; row < 3; row++) {
+		if (board[row][0] == board[row][1] && board[row][1] == board[row][2]) {
+			if (board[row][0] == "X") {
+				gameOver = true;
+				// winningArea.textContent = "player X wins ";
+				// firstRow[0],[1],[2]
+				// secondRow[1]
+				// thirdRow[]
+				return 10;
+			} else if (board[row][0] == "O") {
+				gameOver = true;
+				// winningArea.textContent = "player O wins ";
+				// ...
+				return -10;
+			}
+		}
+	}
+	for (let col = 0; col < 3; col++) {
+		if (board[0][col] == board[1][col] && board[1][col] == board[2][col]) {
+			if (board[row][0] == "X") {
+				gameOver = true;
+				// ...
+				return 10;
+			} else if (board[row][0] == "O") {
+				gameOver = true;
+				// ..
+				return -10;
+			}
+		}
+	}
+	if (board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+		if (board[0][0] == "X") {
+			gameOver = true;
+			// ...
+			return 10;
+		} else if (board[0][0] == "O") {
+			gameOver = true;
+			// ..
+			return -10;
+		}
+	} else if (board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+		if (board[0][2] == "X") {
+			gameOver = true;
+			// ...
+			return 10;
+		} else if (board[0][2] == "O") {
+			gameOver = true;
+			// ..
+			return -10;
+		}
+	}
+	return 0;
+}
+
+// -----old-code----- //
 
 let cells = document.querySelectorAll(".cell");
 let xTurn = document.querySelector(".player-turn > .player-x");
@@ -56,7 +106,7 @@ function fillBox(cell) {
 
 	if (
 		playerChose == "one-player" &&
-		roundWon === false &&
+		gameOver === false &&
 		cell.textContent == ""
 	) {
 		boardBoxes.splice(cell.id, 1, playerX);
@@ -64,7 +114,7 @@ function fillBox(cell) {
 
 		checkWin();
 		robot(); // robot turn
-	} else if (playerChose == "two-players" && roundWon === false) {
+	} else if (playerChose == "two-players" && gameOver === false) {
 		currentPlayer = circle ? playerO : playerX;
 		boardBoxes.splice(cell.id, 1, currentPlayer);
 		cell.innerText = currentPlayer; // change x to current user
@@ -89,7 +139,7 @@ function checkWin() {
 		let b = boardBoxes[currentRound[1]];
 		let c = boardBoxes[currentRound[2]];
 		if (a == "X" && b == "X" && c == "X") {
-			roundWon = true;
+			gameOver = true;
 			winningArea.textContent = "player X wins ";
 			// heighlight match boxes
 			cells[currentRound[0]].classList.add("winBox");
@@ -98,7 +148,7 @@ function checkWin() {
 			restartButton.classList.remove("hide");
 			break;
 		} else if (a == "O" && b == "O" && c == "O") {
-			roundWon = true;
+			gameOver = true;
 			winningArea.textContent = "player O wins";
 			// heighlight match boxes
 			cells[currentRound[0]].classList.add("winBox");
@@ -109,36 +159,27 @@ function checkWin() {
 		}
 	}
 
-	let finish = boardBoxes.every((box) => {
+	let gameFinished = boardBoxes.every((box) => {
 		return box != "";
 	});
-	if (finish && !roundWon) {
+	if (gameFinished && !gameOver) {
 		winningArea.textContent = "it's Tai";
 		restartButton.classList.remove("hide");
-	} else if (finish) restartButton.classList.remove("hide");
+	} else if (gameFinished) restartButton.classList.remove("hide");
 }
 
 // AI
 function robot() {
 	let randomN = Math.floor(Math.random() * 9);
-	let finished = boardBoxes.every((box) => {
+	let gameFinished = boardBoxes.every((box) => {
 		return box != "";
 	});
-	if (boardBoxes[randomN] == "" && !roundWon) {
+	if (boardBoxes[randomN] == "" && !gameOver) {
 		boardBoxes.splice(randomN, 1, "O");
 		cells[randomN].classList.add("robot");
 		cells[randomN].innerText = "O";
 
 		return "O";
-	} else if (!finished && !roundWon) robot();
+	} else if (!gameFinished && !gameOver) robot();
 	checkWin(); // check win two times
 }
-
-/* for (i=0 ; i<boardBoxes.length;i++){
-	let index;
-	for(j=0; j<3; j++){
-		if ()
-		posibleWins[i][j]
-	}
-	
-} */
