@@ -11,26 +11,26 @@
 		<div class="container">
 			<h1>Tic Tac Toe</h1>
 
-			<div class="game-start">
+			<div class="game-start hide">
 				<div id="one-player">One player</div>
 				<div id="two-players">Two players</div>
 			</div>
 			<div class="winner hide"></div>
-			<div class="main hide">
+			<div class="main">
 				<div class="player-turn">
 					<div class="player-x">X</div>
 					<div class="player-o">O</div>
 				</div>
 				<div class="game-board">
-					<div class="cell" id="0"></div>
-					<div class="cell" id="1"></div>
-					<div class="cell" id="2"></div>
-					<div class="cell" id="3"></div>
-					<div class="cell" id="4"></div>
-					<div class="cell" id="5"></div>
-					<div class="cell" id="6"></div>
-					<div class="cell" id="7"></div>
-					<div class="cell" id="8"></div>
+					<div class="cell" data-row="0" data-col="0"></div>
+					<div class="cell" data-row="0" data-col="1"></div>
+					<div class="cell" data-row="0" data-col="2"></div>
+					<div class="cell" data-row="1" data-col="0"></div>
+					<div class="cell" data-row="1" data-col="1"></div>
+					<div class="cell" data-row="1" data-col="2"></div>
+					<div class="cell" data-row="2" data-col="0"></div>
+					<div class="cell" data-row="2" data-col="1"></div>
+					<div class="cell" data-row="2" data-col="2"></div>
 				</div>
 				<br />
 				<span class="restart-game hide" onclick="location.reload()">
