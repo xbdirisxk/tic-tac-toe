@@ -15,13 +15,13 @@ function checkWinner() {
 			if (board[row][0] == "X") {
 				gameOver = true;
 				console.log("GAME OVER");
-				// winningArea.textContent = "player X wins ";
-				// heighlight match node
+				// messageField.textContent = "player X wins ";
+				// heighlight match nodes
 				return 10;
 			} else if (board[row][0] == "O") {
 				gameOver = true;
 				console.log("GAME OVER");
-				// winningArea.textContent = "player O wins ";
+				// messageField.textContent = "player O wins ";
 				// ...
 				return -10;
 			}
@@ -78,6 +78,7 @@ function checkWinner() {
 let cells = document.querySelectorAll(".cell");
 let xTurn = document.querySelector(".player-turn > .player-x");
 let circleTurn = document.querySelector(".player-turn > .player-o");
+let messageField = document.querySelector(".winner");
 
 /* player choice one or two player */
 
@@ -90,12 +91,12 @@ gameOption.forEach((option) => {
 		if (option.id == "one-player") {
 			playerChose = "one-player";
 			gameBegin.classList.add("hide");
-			winningArea.classList.remove("hide");
+			messageField.classList.remove("hide");
 			gameboard.classList.remove("hide");
 		} else if (option.id == "two-players") {
 			playerChose = "two-players";
 			gameBegin.classList.add("hide");
-			winningArea.classList.remove("hide");
+			messageField.classList.remove("hide");
 			gameboard.classList.remove("hide");
 		}
 	});
@@ -108,15 +109,12 @@ let circle;
 xTurn.classList.toggle("heighlight");
 
 cells.forEach((cell) => {
-	cell.addEventListener("click", fillBox, { once: true });
+	cell.addEventListener("click", markCell, { once: true });
 });
 
-function fillBox(cell) {
+function markCell(cell) {
 	cell = cell.target;
-	/* if (playerChose == "one-player" &&gameOver === false &&cell.textContent == "") 
-		{boardBoxes.splice(cell.id, 1, playerX);
-		cell.innerText = playerX;
-		checkWin();robot(); }  */
+
 	if (gameOver === false) {
 		currentPlayer = circle ? playerO : playerX;
 
@@ -135,20 +133,61 @@ function swapPlayer() {
 	circleTurn.classList.toggle("heighlight");
 }
 
-let winningArea = document.querySelector(".winner");
-
 // AI
-/* function robot() {
-	let randomN = Math.floor(Math.random() * 9);
-	let gameFinished = boardBoxes.every((box) => {
-		return box != "";
-	});
-	if (boardBoxes[randomN] == "" && !gameOver) {
-		boardBoxes.splice(randomN, 1, "O");
-		cells[randomN].classList.add("robot");
-		cells[randomN].innerText = "O";
 
-		return "O";
-	} else if (!gameFinished && !gameOver) robot();
-	checkWin(); // check win two times
-} */
+function ismoveLeft() {
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < 3; j++) {
+			if (board[i][j] == "_") return true;
+		}
+	}
+	return false;
+}
+
+function minimax(depth, isMaximazing) {
+	let score = checkWinner();
+
+	if (score == 10) return score;
+	if (score == -10) return score;
+	if (ismoveLeft() == false) return 0;
+
+	// is this maximazer's move
+	if (isMaximazing) {
+		let best = -Infinity;
+		for (i = 0; i < 3; i++) {
+			for (j = 0; j < 3; j++) {
+				if (board[i][j] == "_") {
+					// make the move
+					board[i][j] = player;
+					// call minimax recursively and choose the maximum value
+					best = Math.max(best, minimax(depth + 1, true)); // ???
+					// undo the move
+					board[i][j] = "_";
+				}
+			}
+		}
+		return best;
+	} else if (!isMaximazing) {
+		let best = Infinity;
+		for (i = 0; i < 3; i++) {
+			for (j = 0; j < 3; j++) {
+				if (board[i][j] == "_") {
+					// make the move
+					board[i][j] = player;
+					// call minimax recursively and choose the maximum value
+					best = Math.max(best, minimax(depth + 1, false));
+					// undo the move
+					board[i][j] = "_";
+				}
+			}
+		}
+		return best;
+	}
+}
+
+function findBestMove() {
+	let bestVal = -Infinity;
+	let bestMove = new move();
+	bestMove.row = -1;
+	bestMove.col = -1;
+}
