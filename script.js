@@ -9,21 +9,26 @@ const board = [
 	['_', '_', '_'],
 ];
 
-/* function checkWinner() {
+function checkWinner() {
 	for (let row = 0; row < 3; row++) {
 		if (board[row][0] == board[row][1] && board[row][1] == board[row][2]) {
 			if (board[row][0] == 'X') {
 				gameOver = true;
-				console.log('GAME OVER');
-				// messageField.textContent = "player X wins ";
-				// heighlight match nodes
-				return 10;
+
+				messageField.textContent = 'player X wins ';
+				for (i = 0; i < cells.length; i++)
+					if (cells[i].dataset.row == row) cells[i].classList.add('winbox');
+
+				// return 10;
 			} else if (board[row][0] == 'O') {
 				gameOver = true;
-				console.log('GAME OVER');
-				// messageField.textContent = "player O wins ";
+
+				messageField.textContent = 'player O wins ';
+				for (i = 0; i < cells.length; i++)
+					if (cells[i].dataset.row == row) cells[i].classList.add('winbox');
 				// ...
-				return -10;
+
+				// return -10;
 			}
 		}
 	}
@@ -31,47 +36,93 @@ const board = [
 		if (board[0][col] == board[1][col] && board[1][col] == board[2][col]) {
 			if (board[0][col] == 'X') {
 				gameOver = true;
-				console.log('GAME OVER');
-				// ...
-				return 10;
+
+				messageField.textContent = 'player X wins ';
+				for (i = 0; i < cells.length; i++)
+					if (cells[i].dataset.col == col) cells[i].classList.add('winbox');
+
+				// return 10;
 			} else if (board[0][col] == 'O') {
 				gameOver = true;
-				console.log('GAME OVER');
-				// ..
-				return -10;
+
+				messageField.textContent = 'player O wins ';
+				for (i = 0; i < cells.length; i++)
+					if (cells[i].dataset.col == col) cells[i].classList.add('winbox');
+
+				// return -10;
 			}
 		}
 	}
 	if (board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
 		if (board[0][0] == 'X') {
 			gameOver = true;
-			console.log('GAME OVER');
-			// ...
-			return 10;
+
+			messageField.textContent = 'player X wins ';
+
+			for (i = 0; i < cells.length; i++) {
+				if (cells[i].dataset.row == 0 && cells[i].dataset.col == 0)
+					cells[i].classList.add('winbox');
+				if (cells[i].dataset.row == 1 && cells[i].dataset.col == 1)
+					cells[i].classList.add('winbox');
+				if (cells[i].dataset.row == 2 && cells[i].dataset.col == 2)
+					cells[i].classList.add('winbox');
+			}
+
+			// return 10;
 		} else if (board[0][0] == 'O') {
 			gameOver = true;
-			console.log('GAME OVER');
-			// ..
-			return -10;
+
+			messageField.textContent = 'player O wins ';
+
+			for (i = 0; i < cells.length; i++) {
+				if (cells[i].dataset.row == 0 && cells[i].dataset.col == 0)
+					cells[i].classList.add('winbox');
+				if (cells[i].dataset.row == 1 && cells[i].dataset.col == 1)
+					cells[i].classList.add('winbox');
+				if (cells[i].dataset.row == 2 && cells[i].dataset.col == 2)
+					cells[i].classList.add('winbox');
+			}
+
+			// return -10;
 		}
 	} else if (board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
 		if (board[0][2] == 'X') {
 			gameOver = true;
-			console.log('GAME OVER');
-			// ...
-			return 10;
+
+			messageField.textContent = 'player X wins ';
+
+			for (i = 0; i < cells.length; i++) {
+				if (cells[i].dataset.row == 0 && cells[i].dataset.col == 2)
+					cells[i].classList.add('winbox');
+				if (cells[i].dataset.row == 1 && cells[i].dataset.col == 1)
+					cells[i].classList.add('winbox');
+				if (cells[i].dataset.row == 2 && cells[i].dataset.col == 0)
+					cells[i].classList.add('winbox');
+			}
+
+			// return 10;
 		} else if (board[0][2] == 'O') {
 			gameOver = true;
-			console.log('GAME OVER');
-			// ..
-			return -10;
+
+			messageField.textContent = 'player O wins ';
+
+			for (i = 0; i < cells.length; i++) {
+				if (cells[i].dataset.row == 0 && cells[i].dataset.col == 2)
+					cells[i].classList.add('winbox');
+				if (cells[i].dataset.row == 1 && cells[i].dataset.col == 1)
+					cells[i].classList.add('winbox');
+				if (cells[i].dataset.row == 2 && cells[i].dataset.col == 0)
+					cells[i].classList.add('winbox');
+			}
+
+			// return -10;
 		}
 	}
 
 	// add game TAI
 
 	return 0;
-} */
+}
 
 /*------old-code------*/
 
@@ -112,12 +163,11 @@ cells.forEach((cell) => {
 	cell.addEventListener('click', markCell, { once: true });
 });
 
-let moveD = document.querySelector('.main > .minimax');
 let bestMove;
 function markCell(cell) {
 	cell = cell.target;
 
-	if (gameOver === false) {
+	if (gameOver === false && cell.textContent == '') {
 		currentPlayer = playerX;
 
 		board[+cell.dataset.row].splice(+cell.dataset.col, 1, currentPlayer);
@@ -128,8 +178,7 @@ function markCell(cell) {
 		bestMove = findBestMove(board);
 
 		robot();
-		moveD.innerHTML += '<br>ROW: ' + bestMove.row + ' COL: ' + bestMove.col;
-		// evaluate again
+		checkWinner();
 	}
 
 	/* else if (gameOver === false) {
@@ -142,7 +191,7 @@ function markCell(cell) {
 		evaluate(board);
 		swapPlayer();
 		bestMove = findBestMove(board);
-		moveD.innerHTML += '<br>ROW: ' + bestMove.row + ' COL: ' + bestMove.col;
+		
 	} */
 }
 
@@ -161,8 +210,7 @@ class Move {
 }
 
 // This function returns true if there are moves
-// remaining on the board. It returns false if
-// there are no moves left to play.
+// remaining on the board else it'll return  false
 function isMovesLeft(board) {
 	for (let i = 0; i < 3; i++)
 		for (let j = 0; j < 3; j++) if (board[i][j] == '_') return true;
@@ -309,15 +357,12 @@ function findBestMove(board) {
 		}
 	}
 
-	moveD.textContent = 'The value of the best Move ' + 'is : ' + bestVal;
-
 	return bestMove;
 }
 
 let robotMove;
 function robot() {
 	bestMove = findBestMove(board);
-	// board[bestMove.row][bestMove.col];
 
 	board[bestMove.row].splice(bestMove.col, 1, playerO);
 
@@ -326,6 +371,7 @@ function robot() {
 			cells[i].dataset.row == bestMove.row &&
 			cells[i].dataset.col == bestMove.col
 		) {
+			cells[i].classList.add('robot');
 			cells[i].textContent = playerO;
 		}
 	}

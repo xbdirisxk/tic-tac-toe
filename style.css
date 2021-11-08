@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
 
 :root {
-	font-family: "Courier New", monospace;
+	font-family: 'Courier New', monospace;
 }
 
 body {
@@ -16,7 +16,7 @@ body {
 	flex-direction: column;
 }
 .container h1 {
-	font-family: "ZCOOL KuaiLe", cursive;
+	font-family: 'ZCOOL KuaiLe', cursive;
 	font-size: 4rem;
 	margin: 10px;
 }
@@ -25,7 +25,7 @@ body {
 	margin: 50px;
 	display: flex;
 	font-size: 3rem;
-	font-family: "ZCOOL KuaiLe", cursive;
+	font-family: 'ZCOOL KuaiLe', cursive;
 }
 .game-start > div {
 	margin: 1px;
@@ -61,7 +61,7 @@ body {
 	text-align: center;
 	border-radius: 4px;
 	width: 100%;
-	font-family: "ZCOOL KuaiLe", cursive;
+	font-family: 'ZCOOL KuaiLe', cursive;
 }
 .player-turn > div {
 	background-color: hsl(34, 78%, 91%);
@@ -98,7 +98,7 @@ body {
 	background-color: hsl(34, 78%, 82%);
 }
 
-.winBox {
+.winbox {
 	background-color: hsl(34, 78%, 72%);
 	border-radius: 10px;
 	animation-name: wingame;
@@ -125,7 +125,7 @@ body {
 	border-radius: 2px;
 	padding: 4px 12px;
 	margin: 10px;
-	font-family: "ZCOOL KuaiLe", cursive;
+	font-family: 'ZCOOL KuaiLe', cursive;
 }
 .restart-game:hover {
 	background-color: hsl(180, 100%, 91%);
