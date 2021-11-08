@@ -19,16 +19,14 @@ function checkWinner() {
 				for (i = 0; i < cells.length; i++)
 					if (cells[i].dataset.row == row) cells[i].classList.add('winbox');
 
-				// return 10;
+				restartButton.classList.remove('hide');
 			} else if (board[row][0] == 'O') {
 				gameOver = true;
 
 				messageField.textContent = 'player O wins ';
 				for (i = 0; i < cells.length; i++)
 					if (cells[i].dataset.row == row) cells[i].classList.add('winbox');
-				// ...
-
-				// return -10;
+				restartButton.classList.remove('hide');
 			}
 		}
 	}
@@ -41,7 +39,7 @@ function checkWinner() {
 				for (i = 0; i < cells.length; i++)
 					if (cells[i].dataset.col == col) cells[i].classList.add('winbox');
 
-				// return 10;
+				restartButton.classList.remove('hide');
 			} else if (board[0][col] == 'O') {
 				gameOver = true;
 
@@ -49,7 +47,7 @@ function checkWinner() {
 				for (i = 0; i < cells.length; i++)
 					if (cells[i].dataset.col == col) cells[i].classList.add('winbox');
 
-				// return -10;
+				restartButton.classList.remove('hide');
 			}
 		}
 	}
@@ -68,7 +66,7 @@ function checkWinner() {
 					cells[i].classList.add('winbox');
 			}
 
-			// return 10;
+			restartButton.classList.remove('hide');
 		} else if (board[0][0] == 'O') {
 			gameOver = true;
 
@@ -83,7 +81,7 @@ function checkWinner() {
 					cells[i].classList.add('winbox');
 			}
 
-			// return -10;
+			restartButton.classList.remove('hide');
 		}
 	} else if (board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
 		if (board[0][2] == 'X') {
@@ -100,7 +98,7 @@ function checkWinner() {
 					cells[i].classList.add('winbox');
 			}
 
-			// return 10;
+			restartButton.classList.remove('hide');
 		} else if (board[0][2] == 'O') {
 			gameOver = true;
 
@@ -115,13 +113,13 @@ function checkWinner() {
 					cells[i].classList.add('winbox');
 			}
 
-			// return -10;
+			restartButton.classList.remove('hide');
 		}
 	}
 
-	// add game TAI
-
-	return 0;
+	if (isMovesLeft(board) === false) {
+		restartButton.classList.remove('hide');
+	}
 }
 
 /*------old-code------*/
@@ -362,17 +360,19 @@ function findBestMove(board) {
 
 let robotMove;
 function robot() {
-	bestMove = findBestMove(board);
+	if (isMovesLeft(board)) {
+		bestMove = findBestMove(board);
 
-	board[bestMove.row].splice(bestMove.col, 1, playerO);
+		board[bestMove.row].splice(bestMove.col, 1, playerO);
 
-	for (i = 0; i < cells.length; i++) {
-		if (
-			cells[i].dataset.row == bestMove.row &&
-			cells[i].dataset.col == bestMove.col
-		) {
-			cells[i].classList.add('robot');
-			cells[i].textContent = playerO;
+		for (i = 0; i < cells.length; i++) {
+			if (
+				cells[i].dataset.row == bestMove.row &&
+				cells[i].dataset.col == bestMove.col
+			) {
+				cells[i].classList.add('robot');
+				cells[i].textContent = playerO;
+			}
 		}
 	}
 }
