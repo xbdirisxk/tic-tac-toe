@@ -80,7 +80,7 @@ let xTurn = document.querySelector('.player-turn > .player-x');
 let circleTurn = document.querySelector('.player-turn > .player-o');
 let messageField = document.querySelector('.winner');
 
-/* player choice one or two player */
+/* player choice */
 
 // const gameBegin = document.querySelector(".game-start");
 // const gameOption = document.querySelectorAll(".game-start > div");
@@ -112,19 +112,38 @@ cells.forEach((cell) => {
 	cell.addEventListener('click', markCell, { once: true });
 });
 
+let moveD = document.querySelector('.main > .minimax');
+let bestMove;
 function markCell(cell) {
 	cell = cell.target;
 
 	if (gameOver === false) {
+		currentPlayer = playerX;
+
+		board[+cell.dataset.row].splice(+cell.dataset.col, 1, currentPlayer);
+
+		cell.textContent = currentPlayer;
+
+		// evaluate(board);
+		bestMove = findBestMove(board);
+
+		robot();
+		moveD.innerHTML += '<br>ROW: ' + bestMove.row + ' COL: ' + bestMove.col;
+		// evaluate again
+	}
+
+	/* else if (gameOver === false) {
 		currentPlayer = circle ? playerO : playerX;
 
 		board[+cell.dataset.row].splice(+cell.dataset.col, 1, currentPlayer);
 
 		cell.textContent = currentPlayer;
 
-		checkWinner();
+		evaluate(board);
 		swapPlayer();
-	}
+		bestMove = findBestMove(board);
+		moveD.innerHTML += '<br>ROW: ' + bestMove.row + ' COL: ' + bestMove.col;
+	} */
 }
 
 function swapPlayer() {
@@ -141,9 +160,6 @@ class Move {
 	}
 }
 
-let player = 'x';
-let opponent = 'o';
-
 // This function returns true if there are moves
 // remaining on the board. It returns false if
 // there are no moves left to play.
@@ -158,28 +174,28 @@ function evaluate(b) {
 	// Checking for Rows for X or O victory.
 	for (let row = 0; row < 3; row++) {
 		if (b[row][0] == b[row][1] && b[row][1] == b[row][2]) {
-			if (b[row][0] == player) return +10;
-			else if (b[row][0] == opponent) return -10;
+			if (b[row][0] == playerO) return +10;
+			else if (b[row][0] == playerX) return -10;
 		}
 	}
 
 	// Checking for Columns for X or O victory.
 	for (let col = 0; col < 3; col++) {
 		if (b[0][col] == b[1][col] && b[1][col] == b[2][col]) {
-			if (b[0][col] == player) return +10;
-			else if (b[0][col] == opponent) return -10;
+			if (b[0][col] == playerO) return +10;
+			else if (b[0][col] == playerX) return -10;
 		}
 	}
 
 	// Checking for Diagonals for X or O victory.
 	if (b[0][0] == b[1][1] && b[1][1] == b[2][2]) {
-		if (b[0][0] == player) return +10;
-		else if (b[0][0] == opponent) return -10;
+		if (b[0][0] == playerO) return +10;
+		else if (b[0][0] == playerX) return -10;
 	}
 
 	if (b[0][2] == b[1][1] && b[1][1] == b[2][0]) {
-		if (b[0][2] == player) return +10;
-		else if (b[0][2] == opponent) return -10;
+		if (b[0][2] == playerO) return +10;
+		else if (b[0][2] == playerX) return -10;
 	}
 
 	// Else if none of them have
@@ -216,7 +232,7 @@ function minimax(board, depth, isMax) {
 				// Check if cell is empty
 				if (board[i][j] == '_') {
 					// Make the move
-					board[i][j] = player;
+					board[i][j] = playerO;
 
 					// Call minimax recursively
 					// and choose the maximum value
@@ -240,7 +256,7 @@ function minimax(board, depth, isMax) {
 				// Check if cell is empty
 				if (board[i][j] == '_') {
 					// Make the move
-					board[i][j] = opponent;
+					board[i][j] = playerX;
 
 					// Call minimax recursively and
 					// choose the minimum value
@@ -272,7 +288,7 @@ function findBestMove(board) {
 			// Check if cell is empty
 			if (board[i][j] == '_') {
 				// Make the move
-				board[i][j] = player;
+				board[i][j] = playerO;
 
 				// compute evaluation function
 				// for this move.
@@ -293,14 +309,24 @@ function findBestMove(board) {
 		}
 	}
 
-	document.write('The value of the best Move ' + 'is : ', bestVal + '<br><br>');
+	moveD.textContent = 'The value of the best Move ' + 'is : ' + bestVal;
 
 	return bestMove;
 }
 
-let bestMove = findBestMove(board);
+let robotMove;
+function robot() {
+	bestMove = findBestMove(board);
+	// board[bestMove.row][bestMove.col];
 
-console.log('ROW: ' + bestMove.row + ' COL: ' + bestMove.col);
+	board[bestMove.row].splice(bestMove.col, 1, playerO);
 
-// make the robot play
-// board[bestMove.row][bestMove.col]
+	for (i = 0; i < cells.length; i++) {
+		if (
+			cells[i].dataset.row == bestMove.row &&
+			cells[i].dataset.col == bestMove.col
+		) {
+			cells[i].textContent = playerO;
+		}
+	}
+}
