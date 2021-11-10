@@ -118,6 +118,7 @@ function checkWinner() {
 	}
 
 	if (isMovesLeft(board) === false) {
+		messageField.textContent = 'Game TAI ';
 		restartButton.classList.remove('hide');
 	}
 }
@@ -172,25 +173,18 @@ function markCell(cell) {
 
 		cell.textContent = currentPlayer;
 
-		// evaluate(board);
-		bestMove = findBestMove(board);
-
 		robot();
 		checkWinner();
-	}
-
-	/* else if (gameOver === false) {
+	} else if (gameOver === false) {
 		currentPlayer = circle ? playerO : playerX;
 
 		board[+cell.dataset.row].splice(+cell.dataset.col, 1, currentPlayer);
 
 		cell.textContent = currentPlayer;
 
-		evaluate(board);
 		swapPlayer();
-		bestMove = findBestMove(board);
-		
-	} */
+		checkWinner();
+	}
 }
 
 function swapPlayer() {
@@ -358,9 +352,9 @@ function findBestMove(board) {
 	return bestMove;
 }
 
-let robotMove;
 function robot() {
-	if (isMovesLeft(board)) {
+	// unbeated gamer ai
+	/* if (isMovesLeft(board)) {
 		bestMove = findBestMove(board);
 
 		board[bestMove.row].splice(bestMove.col, 1, playerO);
@@ -372,6 +366,36 @@ function robot() {
 			) {
 				cells[i].classList.add('robot');
 				cells[i].textContent = playerO;
+			}
+		}
+	} */
+
+	// mediam & easy gamer
+
+	easyRobot();
+}
+
+function easyRobot() {
+	if (isMovesLeft(board)) {
+		let randomRow = Math.floor(Math.random() * 3);
+		let randomCol = Math.floor(Math.random() * 3);
+
+		// add stop repeating same random
+		// add if board is filled repeat the random number
+
+		console.log(randomRow, randomCol);
+
+		if (board[randomRow][randomCol] == '_') {
+			board[randomRow].splice(randomCol, 1, playerO);
+
+			for (i = 0; i < cells.length; i++) {
+				if (
+					cells[i].dataset.row == randomRow &&
+					cells[i].dataset.col == randomCol
+				) {
+					cells[i].classList.add('robot');
+					cells[i].textContent = playerO;
+				}
 			}
 		}
 	}
