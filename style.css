@@ -15,11 +15,16 @@ body {
 	align-items: center;
 	flex-direction: column;
 }
+
+/* game title */
+
 .container h1 {
 	font-family: 'ZCOOL KuaiLe', cursive;
 	font-size: 4rem;
 	margin: 10px;
 }
+
+/* game choice */
 
 .game-start {
 	margin: 50px;
@@ -32,13 +37,22 @@ body {
 	border: 3px solid hsl(34, 44%, 69%);
 	border-radius: 3px;
 	padding: 25px 50px;
-	transition: background 0.4s;
+	transition: 0.2s;
 }
 .game-start > div:hover {
 	background-color: hsl(34, 44%, 69%);
 	color: white;
 	cursor: pointer;
 }
+/* difficulty level */
+select {
+	background-color: hsl(34, 78%, 91%);
+	border: 1px solid hsl(34, 78%, 88%);
+	width: 65px;
+	font-size: 18px;
+}
+
+/* game winner message */
 
 .winner {
 	font-size: 2rem;
@@ -47,6 +61,8 @@ body {
 	font-weight: bolder;
 	color: hsl(0, 100%, 20%);
 }
+
+/* highlight player's turn  */
 
 .main {
 	max-width: 400px;
@@ -72,7 +88,9 @@ body {
 .player-turn > .heighlight {
 	background-color: hsl(34, 78%, 71%);
 }
-/* board game */
+
+/*  board game  */
+
 .game-board {
 	display: inline-grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -133,11 +151,13 @@ body {
 }
 
 /* hide property */
+
 .hide {
 	display: none;
 }
 
 /* robot play animation */
+
 @keyframes robot {
 	0% {
 		color: hsl(34, 78%, 91%);

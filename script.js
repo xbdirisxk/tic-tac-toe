@@ -130,27 +130,7 @@ let xTurn = document.querySelector('.player-turn > .player-x');
 let circleTurn = document.querySelector('.player-turn > .player-o');
 let messageField = document.querySelector('.winner');
 
-/* player choice */
-
-// const gameBegin = document.querySelector(".game-start");
-// const gameOption = document.querySelectorAll(".game-start > div");
 const gameboard = document.querySelector('.container > .main');
-/* let playerChose;
-gameOption.forEach((option) => {
-	option.addEventListener("click", () => {
-		if (option.id == "one-player") {
-			playerChose = "one-player";
-			gameBegin.classList.add("hide");
-			messageField.classList.remove("hide");
-			gameboard.classList.remove("hide");
-		} else if (option.id == "two-players") {
-			playerChose = "two-players";
-			gameBegin.classList.add("hide");
-			messageField.classList.remove("hide");
-			gameboard.classList.remove("hide");
-		}
-	});
-}); */
 
 /* play game */
 
@@ -173,24 +153,10 @@ function markCell(cell) {
 
 		cell.textContent = currentPlayer;
 
+		checkWinner();
 		robot();
 		checkWinner();
-	} else if (gameOver === false) {
-		currentPlayer = circle ? playerO : playerX;
-
-		board[+cell.dataset.row].splice(+cell.dataset.col, 1, currentPlayer);
-
-		cell.textContent = currentPlayer;
-
-		swapPlayer();
-		checkWinner();
 	}
-}
-
-function swapPlayer() {
-	circle = !circle;
-	xTurn.classList.toggle('heighlight');
-	circleTurn.classList.toggle('heighlight');
 }
 
 /* MiniMax AI */
@@ -352,9 +318,9 @@ function findBestMove(board) {
 	return bestMove;
 }
 
+// unbeated AI gamer
 function robot() {
-	// unbeated gamer ai
-	/* if (isMovesLeft(board)) {
+	if (isMovesLeft(board)) {
 		bestMove = findBestMove(board);
 
 		board[bestMove.row].splice(bestMove.col, 1, playerO);
@@ -366,36 +332,6 @@ function robot() {
 			) {
 				cells[i].classList.add('robot');
 				cells[i].textContent = playerO;
-			}
-		}
-	} */
-
-	// mediam & easy gamer
-
-	easyRobot();
-}
-
-function easyRobot() {
-	if (isMovesLeft(board)) {
-		let randomRow = Math.floor(Math.random() * 3);
-		let randomCol = Math.floor(Math.random() * 3);
-
-		// add stop repeating same random
-		// add if board is filled repeat the random number
-
-		console.log(randomRow, randomCol);
-
-		if (board[randomRow][randomCol] == '_') {
-			board[randomRow].splice(randomCol, 1, playerO);
-
-			for (i = 0; i < cells.length; i++) {
-				if (
-					cells[i].dataset.row == randomRow &&
-					cells[i].dataset.col == randomCol
-				) {
-					cells[i].classList.add('robot');
-					cells[i].textContent = playerO;
-				}
 			}
 		}
 	}
