@@ -24,35 +24,7 @@ body {
 	margin: 10px;
 }
 
-/* game choice */
-
-.game-start {
-	margin: 50px;
-	display: flex;
-	font-size: 3rem;
-	font-family: 'ZCOOL KuaiLe', cursive;
-}
-.game-start > div {
-	margin: 1px;
-	border: 3px solid hsl(34, 44%, 69%);
-	border-radius: 3px;
-	padding: 25px 50px;
-	transition: 0.2s;
-}
-.game-start > div:hover {
-	background-color: hsl(34, 44%, 69%);
-	color: white;
-	cursor: pointer;
-}
-/* difficulty level */
-select {
-	background-color: hsl(34, 78%, 91%);
-	border: 1px solid hsl(34, 78%, 88%);
-	width: 65px;
-	font-size: 18px;
-}
-
-/* game winner message */
+/* winner message */
 
 .winner {
 	font-size: 2rem;
@@ -80,8 +52,8 @@ select {
 	font-family: 'ZCOOL KuaiLe', cursive;
 }
 .player-turn > div {
-	background-color: hsl(34, 78%, 91%);
 	flex: 1;
+	background-color: hsl(34, 78%, 91%);
 	border: 1px solid hsl(34, 78%, 88%);
 	padding: 0px 20px;
 }
@@ -119,22 +91,6 @@ select {
 .winbox {
 	background-color: hsl(34, 78%, 72%);
 	border-radius: 10px;
-	animation-name: wingame;
-	animation-duration: 1.5s;
-}
-@keyframes wingame {
-	0% {
-		background-color: hsl(34, 78%, 91%);
-	}
-	25% {
-		background-color: hsl(34, 78%, 70%);
-	}
-	50% {
-		background-color: hsl(34, 78%, 91%);
-	}
-	95% {
-		background-color: hsl(34, 78%, 70%);
-	}
 }
 
 .restart-game {
@@ -163,18 +119,26 @@ select {
 		color: hsl(34, 78%, 91%);
 		font-size: 150px;
 	}
-	50% {
+	25% {
 		color: hsl(34, 44%, 75%);
-		font-size: 100px;
+		font-size: 137px;
+	}
+	50% {
+		color: hsl(34, 44%, 65%);
+		font-size: 125px;
+	}
+	75% {
+		color: hsl(34, 44%, 45%);
+		font-size: 110px;
 	}
 	100% {
-		color: hsl(34, 11%, 41%);
-		font-size: 90px;
+		color: hsl(34, 11%, 31%);
+		font-size: 97px;
 	}
 }
 .robot {
 	color: hsl(0, 0%, 20%);
 	font-size: 90px;
 	animation-name: robot;
-	animation-duration: 0.5s;
+	animation-duration: 265ms;
 }

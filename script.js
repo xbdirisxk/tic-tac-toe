@@ -1,6 +1,5 @@
 let playerX = 'X';
 let playerO = 'O';
-let currentPlayer;
 let gameOver = false;
 
 const board = [
@@ -118,48 +117,41 @@ function checkWinner() {
 	}
 
 	if (isMovesLeft(board) === false) {
-		messageField.textContent = 'Game TAI ';
+		messageField.textContent = "IT'S TAI ";
 		restartButton.classList.remove('hide');
 	}
 }
 
-/*------old-code------*/
+/*----- DOM -----*/
 
 let cells = document.querySelectorAll('.cell');
 let xTurn = document.querySelector('.player-turn > .player-x');
 let circleTurn = document.querySelector('.player-turn > .player-o');
 let messageField = document.querySelector('.winner');
 
-const gameboard = document.querySelector('.container > .main');
-
 /* play game */
 
 let restartButton = document.querySelector('.restart-game');
-let circle;
 xTurn.classList.toggle('heighlight');
 
 cells.forEach((cell) => {
 	cell.addEventListener('click', markCell, { once: true });
 });
 
-let bestMove;
 function markCell(cell) {
 	cell = cell.target;
 
 	if (gameOver === false && cell.textContent == '') {
-		currentPlayer = playerX;
+		board[+cell.dataset.row].splice(+cell.dataset.col, 1, playerX);
 
-		board[+cell.dataset.row].splice(+cell.dataset.col, 1, currentPlayer);
+		cell.textContent = playerX;
 
-		cell.textContent = currentPlayer;
-
-		checkWinner();
 		robot();
 		checkWinner();
 	}
 }
 
-/* MiniMax AI */
+/* MiniMax Algorithm */
 
 class Move {
 	constructor() {
@@ -321,7 +313,7 @@ function findBestMove(board) {
 // unbeated AI gamer
 function robot() {
 	if (isMovesLeft(board)) {
-		bestMove = findBestMove(board);
+		let bestMove = findBestMove(board);
 
 		board[bestMove.row].splice(bestMove.col, 1, playerO);
 
