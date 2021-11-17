@@ -16,13 +16,13 @@ The minimax algorithm proceeds all the way down to the terminal node of the tree
 
 ![minimax example](https://upload.wikimedia.org/wikipedia/commons/e/e1/Plminmax.gif)
 
-> ### try it: **https://xbdirisxk.github.io/tic-tac-toe/**
+#### try it: **https://xbdirisxk.github.io/tic-tac-toe/**
 
 . <br>
 . <br>
 .
 
-## for more explanation read these articles
+#### for more explanation read these articles
 
 [Wikipidia article](https://en.wikipedia.org/wiki/Minimax)
 

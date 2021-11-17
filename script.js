@@ -1,5 +1,5 @@
-let playerX = 'X';
-let playerO = 'O';
+let player = 'X';
+let opponent = 'O';
 let gameOver = false;
 
 const board = [
@@ -124,27 +124,54 @@ function checkWinner() {
 
 /*----- DOM -----*/
 
-let cells = document.querySelectorAll('.cell');
-let xTurn = document.querySelector('.player-turn > .player-x');
-let circleTurn = document.querySelector('.player-turn > .player-o');
-let messageField = document.querySelector('.winner');
+const cells = document.querySelectorAll('.cell');
+const messageField = document.querySelector('.winner');
+
+/* player choice: X or O */
+
+const Xmark = document.querySelector('.player-choice > .player-x');
+const Omark = document.querySelector('.player-choice > .player-o');
+
+Xmark.addEventListener('click', () => {
+	if (gameOver === false) {
+		player = 'X';
+		opponent = 'O';
+		Omark.classList.remove('heighlight');
+		Xmark.classList.add('heighlight');
+
+		restartGame();
+	}
+});
+Omark.addEventListener('click', () => {
+	if (gameOver === false) {
+		player = 'O';
+		opponent = 'X';
+		Xmark.classList.remove('heighlight');
+		Omark.classList.add('heighlight');
+
+		restartGame();
+		// if Robot is X then it'll make the first move
+		robot();
+	}
+});
+
+Xmark.classList.toggle('heighlight');
 
 /* play game */
 
-let restartButton = document.querySelector('.restart-game');
-xTurn.classList.toggle('heighlight');
+const restartButton = document.querySelector('.restart-game');
 
 cells.forEach((cell) => {
-	cell.addEventListener('click', markCell, { once: true });
+	cell.addEventListener('click', markCell);
 });
 
 function markCell(cell) {
 	cell = cell.target;
 
 	if (gameOver === false && cell.textContent == '') {
-		board[+cell.dataset.row].splice(+cell.dataset.col, 1, playerX);
+		board[+cell.dataset.row].splice(+cell.dataset.col, 1, player);
 
-		cell.textContent = playerX;
+		cell.textContent = player;
 
 		robot();
 		checkWinner();
@@ -172,28 +199,28 @@ function evaluate(b) {
 	// Checking for Rows for X or O victory.
 	for (let row = 0; row < 3; row++) {
 		if (b[row][0] == b[row][1] && b[row][1] == b[row][2]) {
-			if (b[row][0] == playerO) return +10;
-			else if (b[row][0] == playerX) return -10;
+			if (b[row][0] == opponent) return +10;
+			else if (b[row][0] == player) return -10;
 		}
 	}
 
 	// Checking for Columns for X or O victory.
 	for (let col = 0; col < 3; col++) {
 		if (b[0][col] == b[1][col] && b[1][col] == b[2][col]) {
-			if (b[0][col] == playerO) return +10;
-			else if (b[0][col] == playerX) return -10;
+			if (b[0][col] == opponent) return +10;
+			else if (b[0][col] == player) return -10;
 		}
 	}
 
 	// Checking for Diagonals for X or O victory.
 	if (b[0][0] == b[1][1] && b[1][1] == b[2][2]) {
-		if (b[0][0] == playerO) return +10;
-		else if (b[0][0] == playerX) return -10;
+		if (b[0][0] == opponent) return +10;
+		else if (b[0][0] == player) return -10;
 	}
 
 	if (b[0][2] == b[1][1] && b[1][1] == b[2][0]) {
-		if (b[0][2] == playerO) return +10;
-		else if (b[0][2] == playerX) return -10;
+		if (b[0][2] == opponent) return +10;
+		else if (b[0][2] == player) return -10;
 	}
 
 	// Else if none of them have
@@ -230,7 +257,7 @@ function minimax(board, depth, isMax) {
 				// Check if cell is empty
 				if (board[i][j] == '_') {
 					// Make the move
-					board[i][j] = playerO;
+					board[i][j] = opponent;
 
 					// Call minimax recursively
 					// and choose the maximum value
@@ -254,7 +281,7 @@ function minimax(board, depth, isMax) {
 				// Check if cell is empty
 				if (board[i][j] == '_') {
 					// Make the move
-					board[i][j] = playerX;
+					board[i][j] = player;
 
 					// Call minimax recursively and
 					// choose the minimum value
@@ -286,7 +313,7 @@ function findBestMove(board) {
 			// Check if cell is empty
 			if (board[i][j] == '_') {
 				// Make the move
-				board[i][j] = playerO;
+				board[i][j] = opponent;
 
 				// compute evaluation function
 				// for this move.
@@ -312,10 +339,12 @@ function findBestMove(board) {
 
 // unbeated AI gamer
 function robot() {
+	// if opponent== 'X'
+	// make first move
 	if (isMovesLeft(board)) {
 		let bestMove = findBestMove(board);
 
-		board[bestMove.row].splice(bestMove.col, 1, playerO);
+		board[bestMove.row].splice(bestMove.col, 1, opponent);
 
 		for (i = 0; i < cells.length; i++) {
 			if (
@@ -323,8 +352,22 @@ function robot() {
 				cells[i].dataset.col == bestMove.col
 			) {
 				cells[i].classList.add('robot');
-				cells[i].textContent = playerO;
+				cells[i].textContent = opponent;
 			}
+		}
+	}
+}
+
+function restartGame() {
+	// clear cells
+	cells.forEach((item) => {
+		item.textContent = '';
+	});
+
+	// clear board
+	for (r = 0; r < 3; r++) {
+		for (c = 0; c < 3; c++) {
+			board[r][c] = '_';
 		}
 	}
 }

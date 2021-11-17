@@ -41,7 +41,7 @@ body {
 	user-select: none;
 }
 
-.player-turn {
+.player-choice {
 	display: flex;
 	justify-items: center;
 	align-items: center;
@@ -51,13 +51,18 @@ body {
 	width: 100%;
 	font-family: 'ZCOOL KuaiLe', cursive;
 }
-.player-turn > div {
+.player-choice > div {
 	flex: 1;
 	background-color: hsl(34, 78%, 91%);
 	border: 1px solid hsl(34, 78%, 88%);
 	padding: 0px 20px;
 }
-.player-turn > .heighlight {
+.player-choice > div:hover {
+	cursor: pointer;
+	background-color: hsl(34, 78%, 75%);
+}
+
+.player-choice > .heighlight {
 	background-color: hsl(34, 78%, 71%);
 }
 
