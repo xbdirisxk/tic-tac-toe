@@ -1,9 +1,9 @@
 # tic-tac-toe game
 
-this is two player, You _vs_ unbeated robot
+this is two player game (You _vs_ robot).
 
-this robot is using algorithm called Minimax. <br>
-but, what is Minimax algorithm ?
+this robot is using Minimax algorithm, which make it unbeatable. <br>
+what is Minimax algorithm ?
 
 Minimax algorithm is a recursive algorithm which is used in decision-making and Game theory. It provides an optimal move for the player assuming that opponent is also playing optimally.
 
@@ -22,7 +22,7 @@ The minimax algorithm proceeds all the way down to the terminal node of the tree
 . <br>
 .
 
-#### for more explanation read these articles
+#### For More:
 
 [Wikipidia article](https://en.wikipedia.org/wiki/Minimax)
 
