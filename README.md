@@ -2,15 +2,14 @@
 
 this is two player game (You _vs_ robot).
 
-this robot is using Minimax algorithm, which make it unbeatable. <br>
-what is Minimax algorithm ?
+the robot in this game is using an algorithm called Minimax, which making it unbeatable player. <br>
 
-Minimax algorithm is a recursive algorithm which is used in decision-making and Game theory. It provides an optimal move for the player assuming that opponent is also playing optimally.
+Minimax is a recursive algorithm which is used in decision-making and Game theory. It provides an optimal move for the player assuming that opponent is also playing optimally.
 
--In this algorithm two players play the game, one is called _MAX_ and other is called _MIN_. <br>
--Both the players fight it as the opponent player gets the minimum benefit while they get the maximum benefit. <br>
--Both Players of the game are opponent of each other, where MAX will select the maximized value and MIN will select the minimized value. <br>
--The minimax algorithm performs a depth-first search algorithm for the exploration of the complete game tree.
+- In minmax algorithm two players play the game, one is called _MAX_ and other is called _MIN_. <br>
+- Both the players fight it as the opponent player gets the minimum benefit while they get the maximum benefit. <br>
+- Both Players of the game are opponent of each other, where MAX will select the maximized value and MIN will select the minimized value. <br>
+- The minimax algorithm performs a depth-first search algorithm for the exploration of the complete game tree.
 
 The minimax algorithm proceeds all the way down to the terminal node of the tree, then backtrack the tree as the recursion.
 
